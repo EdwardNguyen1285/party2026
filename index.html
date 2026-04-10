@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Party Công Đoàn Lần 1 – 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Be Vietnam Pro',sans-serif;background:#EEEDFE;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;}
+.nav{display:flex;gap:8px;margin-bottom:1.25rem;}
+.nav-btn{padding:7px 22px;border-radius:20px;border:1.5px solid #AFA9EC;background:transparent;color:#534AB7;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;}
+.nav-btn.active{background:#534AB7;color:#fff;border-color:#534AB7;}
+.nav-btn:hover:not(.active){background:#fff;}
+.slide{display:none;max-width:520px;width:100%;animation:fadeIn .3s ease;}
+.slide.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 8px 40px rgba(83,74,183,0.13);}
+.ann-header{background:#534AB7;padding:2rem 1.75rem 1.5rem;text-align:center;}
+.badge{display:inline-block;background:#3C3489;color:#CECBF6;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:12px;font-weight:500;}
+.ann-header h1{color:#fff;font-size:22px;font-weight:600;margin-bottom:4px;}
+.ann-header .sub{color:#AFA9EC;font-size:13px;}
+.ann-body{padding:1.5rem 1.75rem;}
+.greeting{font-size:14.5px;color:#3a3a4a;line-height:1.85;margin-bottom:1.25rem;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
+.info-tile{background:#F7F6FF;border-radius:12px;padding:.9rem 1rem;}
+.info-tile .lbl{font-size:11px;color:#9996cc;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.info-tile .val{font-size:14px;font-weight:500;color:#1a1a2e;line-height:1.4;}
+.info-tile .val.accent{color:#534AB7;}
+.location-box{background:#F7F6FF;border-radius:12px;padding:.9rem 1rem;margin-bottom:1.1rem;}
+.location-box .lbl{font-size:11px;color:#9996cc;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.loc-name{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:2px;}
+.loc-sub{font-size:13px;color:#534AB7;margin-bottom:2px;}
+.loc-addr{font-size:12.5px;color:#888;}
+.deadline-note{font-size:13.5px;color:#555;line-height:1.7;background:#EEEDFE;border-radius:10px;padding:.85rem 1rem;}
+.deadline-note strong{color:#534AB7;}
+.card-footer{border-top:1px solid #f0f0f5;padding:.85rem 1.75rem;text-align:center;font-size:12px;color:#bbb;}
+.frm-header{background:#534AB7;padding:1.5rem 1.75rem;}
+.frm-header h2{color:#fff;font-size:20px;font-weight:600;margin:8px 0 4px;}
+.frm-header p{color:#AFA9EC;font-size:13px;}
+.frm-body{padding:1.4rem 1.75rem;}
+.frm-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.f{margin-bottom:1rem;}
+.f label{display:block;font-size:11.5px;color:#999;margin-bottom:5px;text-transform:uppercase;letter-spacing:.8px;}
+.f input,.f textarea{width:100%;padding:9px 12px;border:1px solid #dddaf5;border-radius:9px;font-family:inherit;font-size:14px;color:#1a1a2e;background:#fff;outline:none;transition:border .15s;}
+.f input:focus,.f textarea:focus{border-color:#534AB7;}
+.f textarea{resize:vertical;min-height:66px;}
+.chip-group{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px;}
+.chip{padding:6px 14px;border-radius:20px;border:1px solid #dddaf5;font-size:13px;cursor:pointer;background:#fff;color:#555;transition:all .15s;font-family:inherit;}
+.chip.active{background:#EEEDFE;border-color:#534AB7;color:#3C3489;font-weight:500;}
+.chip:hover:not(.active){background:#f7f6ff;}
+.submit-btn{width:100%;padding:12px;background:#534AB7;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.submit-btn:hover:not(:disabled){background:#3C3489;}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.err{display:none;background:#FCEBEB;color:#A32D2D;border-radius:8px;padding:8px 12px;font-size:13px;margin-bottom:.75rem;}
+.sheet-err{display:none;background:#FAEEDA;color:#633806;border-radius:8px;padding:8px 12px;font-size:13px;margin-bottom:.75rem;}
+.success-wrap{display:none;padding:2rem 1.75rem;text-align:center;}
+.success-wrap .s-icon{font-size:42px;margin-bottom:12px;}
+.success-wrap h3{font-size:18px;font-weight:600;color:#27500A;margin-bottom:8px;}
+.success-wrap p{font-size:14px;color:#3B6D11;line-height:1.65;margin-bottom:1.1rem;}
+.sheet-link{display:inline-block;font-size:13px;color:#534AB7;text-decoration:none;border:1px solid #AFA9EC;border-radius:20px;padding:6px 18px;margin-bottom:.9rem;}
+.sheet-link:hover{background:#EEEDFE;}
+.register-again{padding:8px 22px;border-radius:20px;border:1.5px solid #534AB7;background:transparent;color:#534AB7;cursor:pointer;font-family:inherit;font-size:13px;}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <button class="nav-btn active" onclick="showSlide(1,this)">📢 Thông báo</button>
+  <button class="nav-btn" onclick="showSlide(2,this)">📝 Đăng ký</button>
+</div>
+
+<!-- SLIDE 1: Thông báo -->
+<div class="slide active" id="slide1">
+  <div class="card">
+    <div class="ann-header">
+      <div class="badge">Công đoàn · 2026</div>
+      <h1>Party Công Đoàn Lần 1 – 2026</h1>
+      <p class="sub">Trân trọng thông báo đến toàn thể thành viên</p>
+    </div>
+    <div class="ann-body">
+      <p class="greeting">Xin chào các thành viên thân mến! 🥳<br>
+        Một buổi tiệc ấm cúng đang chờ đón tất cả chúng ta — cùng nhau xả hơi, kết nối và tạo thêm thật nhiều kỷ niệm đáng nhớ nhé!</p>
+      <div class="info-grid">
+        <div class="info-tile">
+          <div class="lbl">📅 Ngày tổ chức</div>
+          <div class="val">Thứ Năm<br>17/04/2026</div>
+        </div>
+        <div class="info-tile">
+          <div class="lbl">🕚 Giờ bắt đầu</div>
+          <div class="val">11:00 trưa</div>
+        </div>
+        <div class="info-tile" style="grid-column:1/-1;">
+          <div class="lbl">📝 Hạn đăng ký</div>
+          <div class="val accent">Thứ Hai, 14/04/2026</div>
+        </div>
+      </div>
+      <div class="location-box">
+        <div class="lbl">📍 Địa điểm</div>
+        <div class="loc-name">Shogun Restaurant</div>
+        <div class="loc-sub">Vincom Center Phạm Ngọc Thạch</div>
+        <div class="loc-addr">P. Phạm Ngọc Thạch, Kim Liên, Hà Nội</div>
+      </div>
+      <div class="deadline-note">
+        Để ban tổ chức chuẩn bị chu đáo nhất, hãy <strong>đăng ký tham dự trước hạn</strong> qua tab Đăng ký hoặc liên hệ trực tiếp với đại diện công đoàn tại đơn vị bạn.
+      </div>
+    </div>
+    <div class="card-footer">Ban Chấp Hành Công Đoàn · 2026</div>
+  </div>
+</div>
+
+<!-- SLIDE 2: Đăng ký -->
+<div class="slide" id="slide2">
+  <div class="card">
+    <div class="frm-header">
+      <div class="badge">Đăng ký tham dự</div>
+      <h2>Party Công Đoàn Lần 1 – 2026</h2>
+      <p>Thứ Năm 17/04 · 11:00 · Shogun Phạm Ngọc Thạch · Hạn: 14/04</p>
+    </div>
+    <div class="frm-body" id="form-body">
+      <div class="frm-row">
+        <div class="f">
+          <label>Họ và tên *</label>
+          <input type="text" id="fullname" placeholder="Nguyễn Văn A"/>
+        </div>
+        <div class="f">
+          <label>Phòng / ban *</label>
+          <input type="text" id="dept" placeholder="Phòng Kế toán"/>
+        </div>
+      </div>
+      <div class="f">
+        <label>Số điện thoại *</label>
+        <input type="tel" id="phone" placeholder="0912 345 678"/>
+      </div>
+      <div class="f">
+        <label>Chế độ ăn uống</label>
+        <div class="chip-group" id="diet-chips">
+          <span class="chip active" data-val="Bình thường">Bình thường</span>
+          <span class="chip" data-val="Chay">Chay</span>
+          <span class="chip" data-val="Không ăn hải sản">Không ăn hải sản</span>
+          <span class="chip" data-val="Khác">Khác</span>
+        </div>
+      </div>
+      <div class="f">
+        <label>Ghi chú thêm</label>
+        <textarea id="note" placeholder="Dị ứng thực phẩm, yêu cầu đặc biệt..."></textarea>
+      </div>
+      <div class="err" id="err-msg"></div>
+      <div class="sheet-err" id="sheet-err">⚠️ Không thể kết nối Google Sheets. Vui lòng thử lại.</div>
+      <button class="submit-btn" id="submit-btn" onclick="submitForm()">
+        <span id="btn-text">Xác nhận đăng ký</span>
+        <div class="spinner" id="spinner"></div>
+      </button>
+      <p style="font-size:12px;color:#ccc;text-align:center;margin-top:8px;">Dữ liệu được lưu tự động vào Google Sheets</p>
+    </div>
+    <div class="success-wrap" id="success-wrap">
+      <div class="s-icon">🎉</div>
+      <h3 id="success-name"></h3>
+      <p>Đăng ký thành công!<br>Dữ liệu đã được lưu vào Google Sheets của ban tổ chức.<br>Hẹn gặp bạn tại Shogun ngày 17/04 nhé!</p>
+      <a class="sheet-link" href="https://docs.google.com/spreadsheets" target="_blank">📊 Xem danh sách đăng ký</a><br>
+      <button class="register-again" onclick="resetForm()">Đăng ký thêm người</button>
+    </div>
+    <div class="card-footer">Ban Chấp Hành Công Đoàn · 2026</div>
+  </div>
+</div>
+
+<script>
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbylFjQO35U8aVkwVbe5dZEll230Qox01B9cv9_KfHsxxQBqy1R-yyrTIJ4Apz9rkyrOVA/exec';
+let dietVal = 'Bình thường';
+
+document.querySelectorAll('#diet-chips .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('#diet-chips .chip').forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    dietVal = c.dataset.val;
+  });
+});
+
+function showSlide(n, btn) {
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('slide' + n).classList.add('active');
+  btn.classList.add('active');
+}
+
+async function submitForm() {
+  const name  = document.getElementById('fullname').value.trim();
+  const dept  = document.getElementById('dept').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const note  = document.getElementById('note').value.trim();
+  const err   = document.getElementById('err-msg');
+  const serr  = document.getElementById('sheet-err');
+
+  if (!name || !dept || !phone) {
+    err.style.display = 'block';
+    err.textContent = 'Vui lòng điền đầy đủ các trường bắt buộc (*)';
+    return;
+  }
+  err.style.display = 'none';
+  serr.style.display = 'none';
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  document.getElementById('btn-text').textContent = 'Đang gửi...';
+  document.getElementById('spinner').style.display = 'block';
+
+  try {
+    await fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, dept, phone, diet: dietVal, note })
+    });
+    document.getElementById('form-body').style.display = 'none';
+    document.getElementById('success-wrap').style.display = 'block';
+    document.getElementById('success-name').textContent = name + ' ơi, đã nhận đăng ký!';
+  } catch(e) {
+    serr.style.display = 'block';
+    btn.disabled = false;
+    document.getElementById('btn-text').textContent = 'Xác nhận đăng ký';
+    document.getElementById('spinner').style.display = 'none';
+  }
+}
+
+function resetForm() {
+  document.getElementById('form-body').style.display = 'block';
+  document.getElementById('success-wrap').style.display = 'none';
+  ['fullname','dept','phone','note'].forEach(id => document.getElementById(id).value = '');
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = false;
+  document.getElementById('btn-text').textContent = 'Xác nhận đăng ký';
+  document.getElementById('spinner').style.display = 'none';
+  dietVal = 'Bình thường';
+  document.querySelectorAll('#diet-chips .chip').forEach(c => c.classList.remove('active'));
+  document.querySelector('[data-val="Bình thường"]').classList.add('active');
+}
+</script>
+</body>
+</html>
