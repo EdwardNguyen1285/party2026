@@ -3,238 +3,319 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Party Công Đoàn Lần 1 – 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet"/>
+<title>🗳️ Bầu Chọn Party Công Đoàn – Saltlux</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Be Vietnam Pro',sans-serif;background:#EEEDFE;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;}
-.nav{display:flex;gap:8px;margin-bottom:1.25rem;}
-.nav-btn{padding:7px 22px;border-radius:20px;border:1.5px solid #AFA9EC;background:transparent;color:#534AB7;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;}
-.nav-btn.active{background:#534AB7;color:#fff;border-color:#534AB7;}
-.nav-btn:hover:not(.active){background:#fff;}
-.slide{display:none;max-width:520px;width:100%;animation:fadeIn .3s ease;}
-.slide.active{display:block;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 8px 40px rgba(83,74,183,0.13);}
-.ann-header{background:#534AB7;padding:2rem 1.75rem 1.5rem;text-align:center;}
-.badge{display:inline-block;background:#3C3489;color:#CECBF6;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:12px;font-weight:500;}
-.ann-header h1{color:#fff;font-size:22px;font-weight:600;margin-bottom:4px;}
-.ann-header .sub{color:#AFA9EC;font-size:13px;}
-.ann-body{padding:1.5rem 1.75rem;}
-.greeting{font-size:14.5px;color:#3a3a4a;line-height:1.85;margin-bottom:1.25rem;}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
-.info-tile{background:#F7F6FF;border-radius:12px;padding:.9rem 1rem;}
-.info-tile .lbl{font-size:11px;color:#9996cc;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
-.info-tile .val{font-size:14px;font-weight:500;color:#1a1a2e;line-height:1.4;}
-.info-tile .val.accent{color:#534AB7;}
-.location-box{background:#F7F6FF;border-radius:12px;padding:.9rem 1rem;margin-bottom:1.1rem;}
-.location-box .lbl{font-size:11px;color:#9996cc;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
-.loc-name{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:2px;}
-.loc-sub{font-size:13px;color:#534AB7;margin-bottom:2px;}
-.loc-addr{font-size:12.5px;color:#888;}
-.deadline-note{font-size:13.5px;color:#555;line-height:1.7;background:#EEEDFE;border-radius:10px;padding:.85rem 1rem;}
-.deadline-note strong{color:#534AB7;}
-.card-footer{border-top:1px solid #f0f0f5;padding:.85rem 1.75rem;text-align:center;font-size:12px;color:#bbb;}
-.frm-header{background:#534AB7;padding:1.5rem 1.75rem;}
-.frm-header h2{color:#fff;font-size:20px;font-weight:600;margin:8px 0 4px;}
-.frm-header p{color:#AFA9EC;font-size:13px;}
-.frm-body{padding:1.4rem 1.75rem;}
-.frm-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.f{margin-bottom:1rem;}
-.f label{display:block;font-size:11.5px;color:#999;margin-bottom:5px;text-transform:uppercase;letter-spacing:.8px;}
-.f input,.f textarea{width:100%;padding:9px 12px;border:1px solid #dddaf5;border-radius:9px;font-family:inherit;font-size:14px;color:#1a1a2e;background:#fff;outline:none;transition:border .15s;}
-.f input:focus,.f textarea:focus{border-color:#534AB7;}
-.f textarea{resize:vertical;min-height:66px;}
-.chip-group{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px;}
-.chip{padding:6px 14px;border-radius:20px;border:1px solid #dddaf5;font-size:13px;cursor:pointer;background:#fff;color:#555;transition:all .15s;font-family:inherit;}
-.chip.active{background:#EEEDFE;border-color:#534AB7;color:#3C3489;font-weight:500;}
-.chip:hover:not(.active){background:#f7f6ff;}
-.submit-btn{width:100%;padding:12px;background:#534AB7;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:8px;}
-.submit-btn:hover:not(:disabled){background:#3C3489;}
-.submit-btn:disabled{opacity:.6;cursor:not-allowed;}
-.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none;}
+:root{
+  --purple:#534AB7;--purple-dark:#3C3489;--purple-light:#EEEDFE;--purple-mid:#AFA9EC;
+  --coral:#D85A30;--green:#3B6D11;--green-light:#EAF3DE;
+  --text:#1a1a2e;--muted:#888;--border:#e8e6f5;
+}
+body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(135deg,#EEEDFE 0%,#F4F3FF 50%,#fef6ff 100%);min-height:100vh;padding:2rem 1rem;}
+
+/* Floating confetti */
+.confetti-wrap{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:0;}
+.dot{position:absolute;border-radius:50%;animation:float linear infinite;opacity:.5;}
+@keyframes float{0%{transform:translateY(100vh) rotate(0deg);opacity:.6;}100%{transform:translateY(-100px) rotate(720deg);opacity:0;}}
+
+.container{position:relative;z-index:1;max-width:640px;margin:0 auto;}
+
+/* Header */
+.header{text-align:center;margin-bottom:1.75rem;}
+.header .emoji-row{font-size:40px;margin-bottom:8px;letter-spacing:6px;}
+.header .tag{display:inline-block;background:#fff;border:1.5px solid var(--purple-mid);color:var(--purple);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 16px;border-radius:20px;margin-bottom:10px;font-weight:600;}
+.header h1{font-size:26px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:6px;}
+.header .sub{font-size:14px;color:var(--muted);line-height:1.6;}
+
+/* Alert box */
+.alert{background:#fff;border-radius:16px;border-left:4px solid var(--coral);padding:1rem 1.25rem;margin-bottom:1.5rem;box-shadow:0 2px 16px rgba(83,74,183,.07);}
+.alert .a-head{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--coral);margin-bottom:6px;}
+.alert .a-head span{font-size:18px;}
+.alert p{font-size:13.5px;color:#555;line-height:1.7;}
+.progress-wrap{margin-top:10px;}
+.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px;}
+.progress-bar{height:8px;background:#f0eeff;border-radius:10px;overflow:hidden;}
+.progress-fill{height:100%;width:28.5%;background:linear-gradient(90deg,var(--purple),#7F77DD);border-radius:10px;transition:width .6s ease;}
+
+/* Cards */
+.card{background:#fff;border-radius:20px;padding:1.25rem 1.5rem;margin-bottom:1.1rem;box-shadow:0 2px 16px rgba(83,74,183,.07);border:1.5px solid transparent;transition:border .2s,box-shadow .2s;}
+.card:hover{border-color:var(--purple-mid);box-shadow:0 4px 24px rgba(83,74,183,.13);}
+.card.selected{border-color:var(--purple);background:var(--purple-light);}
+.card-title{font-size:14px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:.85rem;}
+
+/* Time vote */
+.time-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.time-opt{border:1.5px solid var(--border);border-radius:14px;padding:1rem;text-align:center;cursor:pointer;transition:all .2s;background:#fff;}
+.time-opt:hover{border-color:var(--purple-mid);background:var(--purple-light);}
+.time-opt.active{border-color:var(--purple);background:var(--purple-light);}
+.time-opt .t-icon{font-size:28px;margin-bottom:6px;}
+.time-opt .t-label{font-size:14px;font-weight:600;color:var(--text);}
+.time-opt .t-sub{font-size:11.5px;color:var(--muted);margin-top:2px;}
+
+/* Restaurant vote */
+.resto-opt{border:1.5px solid var(--border);border-radius:14px;padding:1rem 1.1rem;cursor:pointer;transition:all .2s;background:#fff;margin-bottom:.75rem;display:flex;align-items:flex-start;gap:12px;}
+.resto-opt:last-child{margin-bottom:0;}
+.resto-opt:hover{border-color:var(--purple-mid);background:var(--purple-light);}
+.resto-opt.active{border-color:var(--purple);background:var(--purple-light);}
+.resto-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.resto-opt.active .resto-radio{border-color:var(--purple);background:var(--purple);}
+.resto-opt.active .resto-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff;}
+.resto-info{flex:1;}
+.resto-name{font-size:14.5px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.resto-detail{font-size:12.5px;color:var(--muted);line-height:1.5;margin-bottom:5px;}
+.resto-tag{display:inline-block;font-size:11px;padding:2px 9px;border-radius:10px;background:#EEEDFE;color:var(--purple);font-weight:500;margin-right:4px;margin-bottom:3px;}
+.resto-tag.green{background:var(--green-light);color:var(--green);}
+.resto-link{font-size:12px;color:var(--purple);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-top:4px;}
+.resto-link:hover{text-decoration:underline;}
+
+/* Commit */
+.commit-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.commit-opt{border:1.5px solid var(--border);border-radius:14px;padding:1rem;text-align:center;cursor:pointer;transition:all .2s;background:#fff;}
+.commit-opt:hover{border-color:var(--purple-mid);background:var(--purple-light);}
+.commit-opt.active{border-color:var(--purple);background:var(--purple-light);}
+.commit-opt .c-icon{font-size:26px;margin-bottom:6px;}
+.commit-opt .c-label{font-size:13.5px;font-weight:600;color:var(--text);}
+
+/* Name field */
+.name-wrap{margin-top:.5rem;}
+.name-wrap label{display:block;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
+.name-wrap input{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);outline:none;transition:border .15s;}
+.name-wrap input:focus{border-color:var(--purple);}
+
+/* Submit */
+.submit-btn{width:100%;padding:14px;background:var(--purple);color:#fff;border:none;border-radius:14px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:1.1rem;}
+.submit-btn:hover:not(:disabled){background:var(--purple-dark);}
+.submit-btn:disabled{opacity:.55;cursor:not-allowed;}
+.spinner{width:17px;height:17px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.err{display:none;background:#FCEBEB;color:#A32D2D;border-radius:8px;padding:8px 12px;font-size:13px;margin-bottom:.75rem;}
-.sheet-err{display:none;background:#FAEEDA;color:#633806;border-radius:8px;padding:8px 12px;font-size:13px;margin-bottom:.75rem;}
-.success-wrap{display:none;padding:2rem 1.75rem;text-align:center;}
-.success-wrap .s-icon{font-size:42px;margin-bottom:12px;}
-.success-wrap h3{font-size:18px;font-weight:600;color:#27500A;margin-bottom:8px;}
-.success-wrap p{font-size:14px;color:#3B6D11;line-height:1.65;margin-bottom:1.1rem;}
-.sheet-link{display:inline-block;font-size:13px;color:#534AB7;text-decoration:none;border:1px solid #AFA9EC;border-radius:20px;padding:6px 18px;margin-bottom:.9rem;}
-.sheet-link:hover{background:#EEEDFE;}
-.register-again{padding:8px 22px;border-radius:20px;border:1.5px solid #534AB7;background:transparent;color:#534AB7;cursor:pointer;font-family:inherit;font-size:13px;}
+.err{display:none;background:#FCEBEB;color:#A32D2D;border-radius:10px;padding:9px 13px;font-size:13px;margin-top:.75rem;}
+
+/* Success */
+.success{display:none;background:#fff;border-radius:20px;padding:2.5rem 1.5rem;text-align:center;box-shadow:0 2px 16px rgba(83,74,183,.07);}
+.success .s-emoji{font-size:52px;margin-bottom:12px;}
+.success h2{font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px;}
+.success p{font-size:14px;color:#555;line-height:1.7;}
+
+/* Footer */
+.footer{text-align:center;font-size:12.5px;color:var(--muted);margin-top:2rem;line-height:1.8;}
+.footer strong{color:var(--purple);}
 </style>
 </head>
 <body>
 
-<div class="nav">
-  <button class="nav-btn active" onclick="showSlide(1,this)">📢 Thông báo</button>
-  <button class="nav-btn" onclick="showSlide(2,this)">📝 Đăng ký</button>
-</div>
+<div class="confetti-wrap" id="confetti"></div>
 
-<!-- SLIDE 1: Thông báo -->
-<div class="slide active" id="slide1">
-  <div class="card">
-    <div class="ann-header">
-      <div class="badge">Công đoàn · 2026</div>
-      <h1>Party Công Đoàn Lần 1 – 2026</h1>
-      <p class="sub">Trân trọng thông báo đến toàn thể thành viên</p>
-    </div>
-    <div class="ann-body">
-      <p class="greeting">Xin chào các thành viên thân mến! 🥳<br>
-        Một buổi tiệc ấm cúng đang chờ đón tất cả chúng ta — cùng nhau xả hơi, kết nối và tạo thêm thật nhiều kỷ niệm đáng nhớ nhé!</p>
-      <div class="info-grid">
-        <div class="info-tile">
-          <div class="lbl">📅 Ngày tổ chức</div>
-          <div class="val">Thứ Năm<br>16/04/2026</div>
-        </div>
-        <div class="info-tile">
-          <div class="lbl">🕚 Giờ bắt đầu</div>
-          <div class="val">11:00 trưa</div>
-        </div>
-        <div class="info-tile" style="grid-column:1/-1;">
-          <div class="lbl">📝 Hạn đăng ký</div>
-          <div class="val accent">Thứ Hai, 13/04/2026</div>
-        </div>
-      </div>
-      <div class="location-box">
-        <div class="lbl">📍 Địa điểm</div>
-        <div class="loc-name">Shogun Restaurant</div>
-        <div class="loc-sub">Vincom Center Phạm Ngọc Thạch</div>
-        <div class="loc-addr">P. Phạm Ngọc Thạch, Kim Liên, Hà Nội</div>
-      </div>
-      <div class="deadline-note">
-        Để ban tổ chức chuẩn bị chu đáo nhất, hãy <strong>đăng ký tham dự trước hạn</strong> qua tab Đăng ký hoặc liên hệ trực tiếp với đại diện công đoàn tại đơn vị bạn.
-      </div>
-    </div>
-    <div class="card-footer">Ban Chấp Hành Công Đoàn · 2026</div>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="emoji-row">🎉🗳️🍻</div>
+    <div class="tag">Công Đoàn Saltlux · 2026</div>
+    <h1>Bầu chọn lại Party<br>Công Đoàn Lần 1!</h1>
+    <p class="sub">Hãy bỏ phiếu ngay hôm nay — kết quả sẽ được chốt theo số đông 🔥</p>
   </div>
-</div>
 
-<!-- SLIDE 2: Đăng ký -->
-<div class="slide" id="slide2">
-  <div class="card">
-    <div class="frm-header">
-      <div class="badge">Đăng ký tham dự</div>
-      <h2>Party Công Đoàn Lần 1 – 2026</h2>
-      <p>Thứ Năm 16/04 · 11:00 · Shogun Phạm Ngọc Thạch · Hạn: 13/04</p>
+  <!-- Alert: hủy ngày mai -->
+  <div class="alert">
+    <div class="a-head"><span>📢</span> Thông báo quan trọng</div>
+    <p>Hiện tại chỉ có <strong>12/42 thành viên</strong> đăng ký — do số lượng còn ít, ban tổ chức xin phép <strong>hủy tổ chức vào ngày mai 16/04</strong> và mở lại bầu chọn để lấy theo ý kiến số đông. Mọi người ơi hãy vote nhé! 🙏</p>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Đã đăng ký</span><span>12 / 42 thành viên</span></div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
     </div>
-    <div class="frm-body" id="form-body">
-      <div class="frm-row">
-        <div class="f">
+  </div>
+
+  <div id="main-form">
+
+    <!-- Buổi ăn -->
+    <div class="card">
+      <div class="card-title">🕐 Chọn buổi ăn</div>
+      <div class="time-opts">
+        <div class="time-opt" id="t-lunch" onclick="selectTime('lunch')">
+          <div class="t-icon">☀️</div>
+          <div class="t-label">Buổi Trưa</div>
+          <div class="t-sub">11:00 – 13:00</div>
+        </div>
+        <div class="time-opt" id="t-dinner" onclick="selectTime('dinner')">
+          <div class="t-icon">🌙</div>
+          <div class="t-label">Buổi Tối</div>
+          <div class="t-sub">18:00 – 20:00</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quán ăn -->
+    <div class="card">
+      <div class="card-title">🍽️ Chọn địa điểm</div>
+
+      <div class="resto-opt" id="r-1" onclick="selectResto('1')">
+        <div class="resto-radio"></div>
+        <div class="resto-info">
+          <div class="resto-name">🍺 Quán Nhậu Tự Do</div>
+          <div class="resto-detail">112 Nguyễn Văn Tuyết</div>
+          <span class="resto-tag">Gọi món</span><span class="resto-tag">ZO ZO</span>
+          <div style="font-size:12px;color:#534AB7;margin-top:3px;">✨ Không gian thoáng mát và sôi động</div>
+          <a class="resto-link" href="https://quannhautudo.com/co-so/112-nguyen-van-tuyet-8.htm" target="_blank">🔗 Xem chi tiết</a>
+        </div>
+      </div>
+
+      <div class="resto-opt" id="r-2" onclick="selectResto('2')">
+        <div class="resto-radio"></div>
+        <div class="resto-info">
+          <div class="resto-name">🥗 Bánh Tráng Phú Cường</div>
+          <div class="resto-detail">Yết Kiêu</div>
+          <span class="resto-tag">Gọi món</span><span class="resto-tag">Lẩu</span><span class="resto-tag">ZO ZO</span>
+          <div style="font-size:12px;color:#534AB7;margin-top:3px;">✨ Quán đã test rồi — không gian đẹp!</div>
+          <a class="resto-link" href="https://banhtrangphucuong.vn/khong-gian-banh-trang-phu-cuong-co-so-2-104-yet-kieu/" target="_blank">🔗 Xem chi tiết</a>
+        </div>
+      </div>
+
+      <div class="resto-opt" id="r-3" onclick="selectResto('3')">
+        <div class="resto-radio"></div>
+        <div class="resto-info">
+          <div class="resto-name">🥩 Buffet Shogun</div>
+          <div class="resto-detail">Phạm Ngọc Thạch – Vincom Center</div>
+          <span class="resto-tag green">Buffet</span><span class="resto-tag">Thịt nướng</span>
+          <div style="font-size:12px;color:#3B6D11;margin-top:3px;">🏆 Đã ăn cuối năm — ngon số 1 về thịt nướng!</div>
+          <a class="resto-link" href="https://www.facebook.com/ShogunPhamNgocThach/" target="_blank">🔗 Xem Facebook</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cam kết tham gia -->
+    <div class="card">
+      <div class="card-title">🙋 Bạn có tham gia không?</div>
+      <div class="commit-opts">
+        <div class="commit-opt" id="c-yes" onclick="selectCommit('yes')">
+          <div class="c-icon">🙋‍♀️</div>
+          <div class="c-label">Có, tôi tham gia!</div>
+        </div>
+        <div class="commit-opt" id="c-no" onclick="selectCommit('no')">
+          <div class="c-icon">😔</div>
+          <div class="c-label">Không thể tham gia</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tên -->
+    <div class="card">
+      <div class="card-title">👤 Thông tin của bạn</div>
+      <div class="frm-row" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="name-wrap">
           <label>Họ và tên *</label>
           <input type="text" id="fullname" placeholder="Nguyễn Văn A"/>
         </div>
-        <div class="f">
+        <div class="name-wrap">
           <label>Phòng / ban *</label>
           <input type="text" id="dept" placeholder="Phòng Kế toán"/>
         </div>
       </div>
-      <div class="f">
-        <label>Số điện thoại *</label>
-        <input type="tel" id="phone" placeholder="0912 345 678"/>
-      </div>
-      <div class="f">
-        <label>Chế độ ăn uống</label>
-        <div class="chip-group" id="diet-chips">
-          <span class="chip active" data-val="Bình thường">Bình thường</span>
-          <span class="chip" data-val="Chay">Chay</span>
-          <span class="chip" data-val="Không ăn hải sản">Không ăn hải sản</span>
-          <span class="chip" data-val="Khác">Khác</span>
-        </div>
-      </div>
-      <div class="f">
-        <label>Ghi chú thêm</label>
-        <textarea id="note" placeholder="Dị ứng thực phẩm, yêu cầu đặc biệt..."></textarea>
-      </div>
-      <div class="err" id="err-msg"></div>
-      <div class="sheet-err" id="sheet-err">⚠️ Không thể kết nối Google Sheets. Vui lòng thử lại.</div>
-      <button class="submit-btn" id="submit-btn" onclick="submitForm()">
-        <span id="btn-text">Xác nhận đăng ký</span>
-        <div class="spinner" id="spinner"></div>
-      </button>
-      <p style="font-size:12px;color:#ccc;text-align:center;margin-top:8px;">Dữ liệu được lưu tự động vào Google Sheets</p>
     </div>
-    <div class="success-wrap" id="success-wrap">
-      <div class="s-icon">🎉</div>
-      <h3 id="success-name"></h3>
-      <p>Đăng ký thành công!<br>Dữ liệu đã được lưu vào Google Sheets của ban tổ chức.<br>Hẹn gặp bạn tại Shogun ngày 17/04 nhé!</p>
-      <a class="sheet-link" href="https://docs.google.com/spreadsheets" target="_blank">📊 Xem danh sách đăng ký</a><br>
-      <button class="register-again" onclick="resetForm()">Đăng ký thêm người</button>
-    </div>
-    <div class="card-footer">Ban Chấp Hành Công Đoàn · 2026</div>
+
+    <div class="err" id="err-msg"></div>
+
+    <button class="submit-btn" id="submit-btn" onclick="submitVote()">
+      <span id="btn-text">🗳️ Gửi bình chọn ngay!</span>
+      <div class="spinner" id="spinner"></div>
+    </button>
+
+    <p style="font-size:12px;color:#bbb;text-align:center;margin-top:10px;">Vui lòng hoàn thành bầu chọn <strong style="color:#534AB7;">trong hôm nay</strong> nhé!</p>
+
   </div>
+
+  <!-- Success -->
+  <div class="success" id="success-box">
+    <div class="s-emoji">🎊</div>
+    <h2 id="success-name">Cảm ơn bạn!</h2>
+    <p>Bình chọn của bạn đã được ghi nhận.<br>Ban tổ chức sẽ tổng hợp và thông báo kết quả sớm nhất.<br><br>Cùng chờ đợi một bữa tiệc thật vui nha! 🥂🍻</p>
+  </div>
+
+  <div class="footer">
+    Mọi thắc mắc vui lòng liên hệ Ban Chấp Hành Công Đoàn<br>
+    <strong>Công ty Saltlux Việt Nam</strong> · 2026
+  </div>
+
 </div>
 
 <script>
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycbylFjQO35U8aVkwVbe5dZEll230Qox01B9cv9_KfHsxxQBqy1R-yyrTIJ4Apz9rkyrOVA/exec';
-let dietVal = 'Bình thường';
 
-document.querySelectorAll('#diet-chips .chip').forEach(c => {
-  c.addEventListener('click', () => {
-    document.querySelectorAll('#diet-chips .chip').forEach(x => x.classList.remove('active'));
-    c.classList.add('active');
-    dietVal = c.dataset.val;
-  });
-});
+let timeVal = '', restoVal = '', commitVal = '';
 
-function showSlide(n, btn) {
-  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('slide' + n).classList.add('active');
-  btn.classList.add('active');
+// Confetti
+(function(){
+  const colors=['#534AB7','#AFA9EC','#D85A30','#5DCAA5','#EF9F27','#F4C0D1','#97C459'];
+  const wrap = document.getElementById('confetti');
+  for(let i=0;i<28;i++){
+    const d=document.createElement('div');
+    const size=Math.random()*10+5;
+    d.className='dot';
+    d.style.cssText=`width:${size}px;height:${size}px;background:${colors[i%colors.length]};left:${Math.random()*100}%;animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*10}s;border-radius:${Math.random()>0.5?'50%':'4px'};`;
+    wrap.appendChild(d);
+  }
+})();
+
+function selectTime(v){
+  timeVal=v;
+  document.getElementById('t-lunch').classList.toggle('active',v==='lunch');
+  document.getElementById('t-dinner').classList.toggle('active',v==='dinner');
+}
+function selectResto(v){
+  restoVal=v;
+  ['1','2','3'].forEach(x=>document.getElementById('r-'+x).classList.toggle('active',x===v));
+}
+function selectCommit(v){
+  commitVal=v;
+  document.getElementById('c-yes').classList.toggle('active',v==='yes');
+  document.getElementById('c-no').classList.toggle('active',v==='no');
 }
 
-async function submitForm() {
-  const name  = document.getElementById('fullname').value.trim();
-  const dept  = document.getElementById('dept').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const note  = document.getElementById('note').value.trim();
-  const err   = document.getElementById('err-msg');
-  const serr  = document.getElementById('sheet-err');
+const restoNames={'1':'Quán Nhậu Tự Do – Nguyễn Văn Tuyết','2':'Bánh Tráng Phú Cường – Yết Kiêu','3':'Buffet Shogun – Phạm Ngọc Thạch'};
+const timeNames={'lunch':'Buổi Trưa','dinner':'Buổi Tối'};
 
-  if (!name || !dept || !phone) {
-    err.style.display = 'block';
-    err.textContent = 'Vui lòng điền đầy đủ các trường bắt buộc (*)';
+async function submitVote(){
+  const name=document.getElementById('fullname').value.trim();
+  const dept=document.getElementById('dept').value.trim();
+  const err=document.getElementById('err-msg');
+
+  if(!timeVal||!restoVal||!commitVal||!name||!dept){
+    err.style.display='block';
+    err.textContent='Vui lòng điền đầy đủ tất cả các lựa chọn và thông tin của bạn nhé!';
     return;
   }
-  err.style.display = 'none';
-  serr.style.display = 'none';
+  err.style.display='none';
 
-  const btn = document.getElementById('submit-btn');
-  btn.disabled = true;
-  document.getElementById('btn-text').textContent = 'Đang gửi...';
-  document.getElementById('spinner').style.display = 'block';
+  const btn=document.getElementById('submit-btn');
+  btn.disabled=true;
+  document.getElementById('btn-text').textContent='Đang gửi...';
+  document.getElementById('spinner').style.display='block';
 
-  try {
-    await fetch(SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, dept, phone, diet: dietVal, note })
+  const payload={
+    name, dept,
+    time: timeNames[timeVal],
+    restaurant: restoNames[restoVal],
+    commit: commitVal==='yes'?'Có tham gia':'Không tham gia',
+    note: 'Vote party lần 1 – 2026'
+  };
+
+  try{
+    await fetch(SHEET_URL,{
+      method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
     });
-    document.getElementById('form-body').style.display = 'none';
-    document.getElementById('success-wrap').style.display = 'block';
-    document.getElementById('success-name').textContent = name + ' ơi, đã nhận đăng ký!';
-  } catch(e) {
-    serr.style.display = 'block';
-    btn.disabled = false;
-    document.getElementById('btn-text').textContent = 'Xác nhận đăng ký';
-    document.getElementById('spinner').style.display = 'none';
+    document.getElementById('main-form').style.display='none';
+    const sb=document.getElementById('success-box');
+    sb.style.display='block';
+    document.getElementById('success-name').textContent=name+' ơi, cảm ơn bạn! 🎉';
+  }catch(e){
+    err.style.display='block';
+    err.textContent='⚠️ Có lỗi kết nối. Vui lòng thử lại nhé!';
+    btn.disabled=false;
+    document.getElementById('btn-text').textContent='🗳️ Gửi bình chọn ngay!';
+    document.getElementById('spinner').style.display='none';
   }
-}
-
-function resetForm() {
-  document.getElementById('form-body').style.display = 'block';
-  document.getElementById('success-wrap').style.display = 'none';
-  ['fullname','dept','phone','note'].forEach(id => document.getElementById(id).value = '');
-  const btn = document.getElementById('submit-btn');
-  btn.disabled = false;
-  document.getElementById('btn-text').textContent = 'Xác nhận đăng ký';
-  document.getElementById('spinner').style.display = 'none';
-  dietVal = 'Bình thường';
-  document.querySelectorAll('#diet-chips .chip').forEach(c => c.classList.remove('active'));
-  document.querySelector('[data-val="Bình thường"]').classList.add('active');
 }
 </script>
 </body>
